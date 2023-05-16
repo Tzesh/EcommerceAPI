@@ -10,6 +10,6 @@ public enum UserType {
 
     @Override
     public String toString() {
-        return this.name().toLowerCase();
+        return this.name().toUpperCase();
     }
 }

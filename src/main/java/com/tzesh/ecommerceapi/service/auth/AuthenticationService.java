@@ -2,6 +2,7 @@ package com.tzesh.ecommerceapi.service.auth;
 
 import com.tzesh.ecommerceapi.base.entity.field.BaseAuditableFields;
 import com.tzesh.ecommerceapi.base.error.GenericErrorMessage;
+import com.tzesh.ecommerceapi.base.exception.BaseException;
 import com.tzesh.ecommerceapi.base.exception.NotFoundException;
 import com.tzesh.ecommerceapi.entity.auth.Token;
 import com.tzesh.ecommerceapi.entity.User;
@@ -12,7 +13,7 @@ import com.tzesh.ecommerceapi.repository.UserRepository;
 import com.tzesh.ecommerceapi.request.auth.AuthorizationRequest;
 import com.tzesh.ecommerceapi.request.auth.LoginRequest;
 import com.tzesh.ecommerceapi.request.auth.RegisterRequest;
-import com.tzesh.ecommerceapi.response.auth.AuthenticationResponse;
+import com.tzesh.ecommerceapi.response.AuthenticationResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -59,11 +60,6 @@ public class AuthenticationService {
      * @see RegisterRequest
      */
     public AuthenticationResponse register(RegisterRequest request) {
-        // check if username or email already exists
-        if (repository.existsByUsernameOrEmail(request.username(), request.email())) {
-            throw new RuntimeException("Username or email already exists");
-        }
-
         // create user
         User user = User.builder()
                 .username(request.username())
@@ -74,6 +70,15 @@ public class AuthenticationService {
                 .type(request.type())
                 .telephone(request.telephone())
                 .build();
+
+        // control if user is exists with username, email or telephone
+        if (repository.existsByUsernameOrEmailOrTelephone(user.getUsername(), user.getEmail(), user.getTelephone())) {
+            throw new BaseException(
+                    GenericErrorMessage.builder()
+                            .message("User with username, email or telephone already exists")
+                            .build()
+            );
+        }
 
         // create auditable fields
         BaseAuditableFields auditableFields = new BaseAuditableFields();

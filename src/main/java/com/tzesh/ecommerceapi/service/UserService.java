@@ -7,7 +7,7 @@ import com.tzesh.ecommerceapi.base.exception.NotFoundException;
 import com.tzesh.ecommerceapi.base.service.BaseService;
 import com.tzesh.ecommerceapi.dto.UserDTO;
 import com.tzesh.ecommerceapi.entity.User;
-import com.tzesh.ecommerceapi.enums.UserErrorMessage;
+import com.tzesh.ecommerceapi.enums.message.UserErrorMessage;
 import com.tzesh.ecommerceapi.enums.auth.RoleEnum;
 import com.tzesh.ecommerceapi.mapper.UserMapper;
 import com.tzesh.ecommerceapi.repository.UserRepository;
@@ -121,6 +121,15 @@ public class UserService extends BaseService<User, UserDTO, UserRepository, User
         user.setTelephone(request.telephone());
         user.setType(request.type());
         user.setPassword(passwordEncoder.encode(request.password()));
+
+        // control if user is exists with username, email or telephone
+        if (repository.existsByUsernameOrEmailOrTelephone(user.getUsername(), user.getEmail(), user.getTelephone())) {
+            throw new BaseException(
+                    GenericErrorMessage.builder()
+                            .message("User with username, email or telephone already exists")
+                            .build()
+            );
+        }
 
         // create base auditable fields
         BaseAuditableFields baseAuditableFields = new BaseAuditableFields();

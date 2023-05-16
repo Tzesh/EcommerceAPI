@@ -9,6 +9,7 @@ import com.tzesh.ecommerceapi.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -87,7 +88,7 @@ public class UserController {
     @GetMapping("/username/{username}")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Get a user by username (ADMIN)", description = "Get a user with the given username and return the user")
-    public ResponseEntity<BaseResponse<UserDTO>> getUserByUsername(@PathVariable String username) {
+    public ResponseEntity<BaseResponse<UserDTO>> getUserByUsername(@PathVariable @NotBlank String username) {
         // call the get method in the user service
         UserDTO userDTO = userService.getUserByUsername(username);
 

@@ -1,4 +1,4 @@
-package com.tzesh.ecommerceapi.response.auth;
+package com.tzesh.ecommerceapi.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
