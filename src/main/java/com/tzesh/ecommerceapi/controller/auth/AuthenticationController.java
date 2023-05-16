@@ -1,10 +1,10 @@
 package com.tzesh.ecommerceapi.controller.auth;
 
 import com.tzesh.ecommerceapi.base.response.BaseResponse;
+import com.tzesh.ecommerceapi.response.AuthenticationResponse;
 import com.tzesh.ecommerceapi.request.auth.AuthorizationRequest;
 import com.tzesh.ecommerceapi.request.auth.LoginRequest;
 import com.tzesh.ecommerceapi.request.auth.RegisterRequest;
-import com.tzesh.ecommerceapi.response.auth.AuthenticationResponse;
 import com.tzesh.ecommerceapi.service.auth.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

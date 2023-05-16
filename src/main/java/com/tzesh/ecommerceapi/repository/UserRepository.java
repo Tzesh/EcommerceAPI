@@ -40,4 +40,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @return Optional of User
      */
     Optional<User> findByUsernameAndTelephone(String username, String telephone);
+
+    /**
+     * Check if email, username and telephone exists
+     * @param username User email
+     * @param email User email
+     * @param telephone User telephone
+     * @return boolean
+     */
+    boolean existsByUsernameOrEmailOrTelephone(String username, String email, String telephone);
 }

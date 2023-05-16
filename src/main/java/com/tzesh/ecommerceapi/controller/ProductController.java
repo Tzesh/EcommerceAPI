@@ -4,12 +4,12 @@ import com.tzesh.ecommerceapi.base.response.BaseResponse;
 import com.tzesh.ecommerceapi.dto.ProductDTO;
 import com.tzesh.ecommerceapi.dto.UserDTO;
 import com.tzesh.ecommerceapi.request.product.SaveProductRequest;
-import com.tzesh.ecommerceapi.request.user.CreateUserRequest;
 import com.tzesh.ecommerceapi.service.ProductService;
 import com.tzesh.ecommerceapi.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
+ * Product Controller class for handling product requests
  * @author tzesh
  */
 @RestController
@@ -55,7 +56,7 @@ public class ProductController {
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Get product by id (ADMIN)", description = "Get product by id and return the product")
-    public ResponseEntity<BaseResponse<ProductDTO>> getProductById(@PathVariable Long id) {
+    public ResponseEntity<BaseResponse<ProductDTO>> getProductById(@PathVariable @NotNull Long id) {
         // call the get by id method in the product service
         ProductDTO productDTO = productService.findById(id);
 
@@ -72,7 +73,7 @@ public class ProductController {
     @PostMapping("/")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Create a new product (ADMIN)", description = "Create a new product with the given details and return the product")
-    public ResponseEntity<BaseResponse<ProductDTO>> createProduct(@RequestBody @Valid SaveProductRequest request, Long ownerId) {
+    public ResponseEntity<BaseResponse<ProductDTO>> createProduct(@RequestBody @Valid SaveProductRequest request, @NotNull Long ownerId) {
         // get user by id
         UserDTO user = userService.findById(ownerId);
 
@@ -92,7 +93,7 @@ public class ProductController {
     @PutMapping("/{id}/price")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update price of a product (ADMIN)", description = "Update price of a product and return the product")
-    public ResponseEntity<BaseResponse<ProductDTO>> updateProductPrice(@PathVariable Long id, @NotNull @RequestParam Double price) {
+    public ResponseEntity<BaseResponse<ProductDTO>> updateProductPrice(@PathVariable @NotNull Long id, @NotNull @RequestParam @Min(0) Double price) {
         // call the update price method in the product service
         ProductDTO productDTO = productService.updatePriceById(id, price);
 
@@ -177,7 +178,7 @@ public class ProductController {
      */
     @PutMapping("/owned/{id}/price")
     @Operation(summary = "Update price of a product owned by the current user", description = "Update price of a product owned by the current user and return the product")
-    public ResponseEntity<BaseResponse<ProductDTO>> updateOwnedProductPrice(@PathVariable Long id, @NotNull @RequestParam Double price) {
+    public ResponseEntity<BaseResponse<ProductDTO>> updateOwnedProductPrice(@PathVariable @NotNull Long id, @NotNull @RequestParam @Min(0) Double price) {
         // get the current user
         UserDTO currentUser = userService.getCurrentUserDTO();
 
