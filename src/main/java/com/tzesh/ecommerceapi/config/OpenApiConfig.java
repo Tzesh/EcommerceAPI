@@ -21,12 +21,12 @@ import io.swagger.v3.oas.annotations.servers.Server;
                         email = "mail@ugurdindar.com",
                         url = "https://ugurdindar.com"
                 ),
-                description = "Spring Boot Template for RESTful API that uses JWT for authentication and authorization, PostgreSQL for database, Hibernate for ORM, and Lombok for boilerplate code generation and MapStruct for mapping DTOs to entities and vice versa.",
-                title = "Spring Boot Template",
-                version = "0.3.0",
+                description = "This is a REST API for an e-commerce application developed using Spring Boot Template (github.com/tzesh/SpringBootTemplate). API that uses JWT for authentication and authorization, PostgreSQL for database, Hibernate for ORM, ControllerAdvice mechanism to exception handling and Lombok for boilerplate code generation and MapStruct for mapping DTOs to entities and vice versa.",
+                title = "E-Commerce API",
+                version = "1.0.0",
                 license = @License(
                         name = "GitHub Repository",
-                        url = "https://github.com/tzesh/SpringBootTemplate"
+                        url = "https://github.com/tzesh/EcommerceAPI"
                 )
         ),
         servers = {

@@ -1,17 +1,25 @@
-# Spring Boot Template
+# E-Commerce API
+This is a homework project given in the Patika.dev - Akbank Java Spring Boot Bootcamp.
 
 ## Description
-A template for Spring Boot projects. This template includes the following features:
-- Spring Boot 3.0.6
-- Spring Security with JWT authentication and authorization also with refresh token
-- Swagger UI for API documentation and testing (http://localhost:8080/api/v1/swagger-ui/index.html) with authentication and authorization support
-- Spring Data JPA with PostgreSQL database integration
-- Exception handling mechanism with custom exceptions and exception handlers using `@ControllerAdvice`
-- Base entity and base DTO for common fields
-- Base service for common business logic
-- Custom `@PreAuthorize` annotation for authorization
-- Lombok for reducing boilerplate code
-- MapStruct for mapping DTOs to entities and vice versa
+This is a REST API for an e-commerce application developed using Spring Boot Template (github.com/tzesh/SpringBootTemplate). It is built with Spring Boot and PostgreSQL.
+- Includes a Swagger UI for testing the API endpoints (http://localhost:8080/api/v1/swagger-ui/index.html)
+- Uses JWT for authentication and authorization
+- Uses refresh tokens for refreshing the access token
+- Uses Spring Security for securing the API endpoints
+- Uses MapStruct for mapping DTOs to entities and vice versa
+- Uses Lombok for generating boilerplate code
+- Uses Spring Data JPA for accessing the database
+- Uses ControllerAdvice for handling exceptions
+
+## Project Definition
+Design and implement a REST API for an e-commerce application. The application should have the following features:
+- The project is a service that provides REST API endpoints for an e-commerce application.
+- Application should be able to handle users, products and comments.
+- Users cannot register with same email address, telephone number or username.
+- User type can be customer or company.
+- Exception handling should be done with ControllerAdvice.
+- All entities should have audit fields (createdDate, createdBy, lastModifiedDate, lastModifiedBy).
 
 ## How to run
 1. Clone this repository
@@ -28,8 +36,6 @@ A template for Spring Boot projects. This template includes the following featur
 12. Now you can test the API endpoints
 13. To test the refresh token endpoint, click the `Authorize` button again and paste the refresh token in the `Value` field without the `Bearer` prefix
 
-![Maven Run](https://imgur.com/lGSrRLL.png)
-![Swagger UI](https://imgur.com/7Vug2XR.png)
-
-## Contribute to this project
-If you want to contribute to this project, please create a pull request.
+## Screenshots
+![Maven Run](https://imgur.com/gLrhDLb.png)
+![Swagger UI](https://imgur.com/qS6feD2.png)
