@@ -94,7 +94,7 @@ public class CommentService extends BaseService<Comment, CommentDTO, CommentRepo
      */
     public List<CommentDTO> getCommentsByUserAndProduct(UserDTO user, ProductDTO product) {
         // get comments by user id and product id
-        List<Comment> comments = repository.getCommentsByProductIdAndUserId(user.getId(), product.getId()).get();
+        List<Comment> comments = repository.getCommentsByProductIdAndUserId(product.getId(), user.getId()).get();
 
         // check if comments is empty
         if (comments.isEmpty()) {

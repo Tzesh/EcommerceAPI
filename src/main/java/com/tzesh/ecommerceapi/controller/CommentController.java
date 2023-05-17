@@ -16,6 +16,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * CommentController is a controller for comments
  * @author tzesh
@@ -38,9 +40,9 @@ public class CommentController {
     @GetMapping("/")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Get all comments (ADMIN)", description = "Get all comments and return the comments")
-    public ResponseEntity<BaseResponse<Iterable<CommentDTO>>> getAllProducts() {
+    public ResponseEntity<BaseResponse<List<CommentDTO>>> getAllProducts() {
         // call the get all method in the product service
-        Iterable<CommentDTO> commentList = commentService.findAll();
+        List<CommentDTO> commentList = commentService.findAll();
 
         // return the response
         return BaseResponse.ok(commentList).message("Comments retrieved successfully").build();
@@ -68,9 +70,9 @@ public class CommentController {
      */
     @GetMapping("/product/{productId}")
     @Operation(summary = "Get comments by product id", description = "Get comments by product id and return the comments")
-    public ResponseEntity<BaseResponse<Iterable<CommentDTO>>> getCommentsByProductId(@NotNull @PathVariable Long productId) {
+    public ResponseEntity<BaseResponse<List<CommentDTO>>> getCommentsByProductId(@NotNull @PathVariable Long productId) {
         // call the get all method in the product service
-        Iterable<CommentDTO> commentList = commentService.getCommentsByProduct(productService.findById(productId));
+        List<CommentDTO> commentList = commentService.getCommentsByProduct(productService.findById(productId));
 
         // return the response
         return BaseResponse.ok(commentList).message("Comments retrieved successfully").build();
@@ -83,9 +85,9 @@ public class CommentController {
      */
     @GetMapping("/user/{userId}")
     @Operation(summary = "Get comments by user id", description = "Get comments by user id and return the comments")
-    public ResponseEntity<BaseResponse<Iterable<CommentDTO>>> getCommentsByUserId(@NotNull @PathVariable Long userId) {
+    public ResponseEntity<BaseResponse<List<CommentDTO>>> getCommentsByUserId(@NotNull @PathVariable Long userId) {
         // call the get all method in the product service
-        Iterable<CommentDTO> commentList = commentService.getCommentsByUser(userService.findById(userId));
+        List<CommentDTO> commentList = commentService.getCommentsByUser(userService.findById(userId));
 
         // return the response
         return BaseResponse.ok(commentList).message("Comments retrieved successfully").build();
@@ -99,9 +101,9 @@ public class CommentController {
      */
     @GetMapping("/user/{userId}/product/{productId}")
     @Operation(summary = "Get comments in given product written by given user", description = "Get comments in given product written by given user and return comments")
-    public ResponseEntity<BaseResponse<Iterable<CommentDTO>>> getCommentsByUserIdAndProductId(@NotNull @PathVariable Long userId, @NotNull @PathVariable Long productId) {
+    public ResponseEntity<BaseResponse<List<CommentDTO>>> getCommentsByUserIdAndProductId(@NotNull @PathVariable Long userId, @NotNull @PathVariable Long productId) {
         // call the get all method in the product service
-        Iterable<CommentDTO> commentList = commentService.getCommentsByUserAndProduct(userService.findById(userId), productService.findById(productId));
+        List<CommentDTO> commentList = commentService.getCommentsByUserAndProduct(userService.findById(userId), productService.findById(productId));
 
         // return the response
         return BaseResponse.ok(commentList).message("Comments retrieved successfully").build();
